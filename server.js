@@ -6,8 +6,12 @@ import userRoutes from './routes/userRoutes.js';
 import postRoutes from './routes/postRoutes.js';
 import { v2 as cloudinary } from "cloudinary";
 import cors from 'cors';
-import path, { dirname } from 'path';
+import path from 'path';
 import { fileURLToPath } from 'url';
+
+// Fix __dirname in ES module
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 dotenv.config();
 connectDB();
@@ -15,13 +19,9 @@ connectDB();
 const app = express();
 const port = process.env.PORT || 5000;
 
-// Fix __dirname in ES module
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
 app.use(cors({
     origin: 'https://threads-frontend-iota.vercel.app',
-    credentials: true, // Allow cookies (JWT Auth)
+    credentials: true,
     methods: 'GET,POST,PUT,DELETE',
     allowedHeaders: 'Content-Type,Authorization',
 }));
@@ -33,11 +33,11 @@ app.use(cookieParser());
 app.use('/api/users', userRoutes);
 app.use('/api/post', postRoutes);
 
-// Serve frontend (React build)
-const frontendPath = path.join(__dirname, 'frontend', 'build');
+// ✅ Fix: Serve frontend from 'dist' instead of 'build'
+const frontendPath = path.join(__dirname, 'frontend', 'dist');
 app.use(express.static(frontendPath));
 
-// Handle React routing, return index.html for all unknown routes
+// ✅ Fix: Return 'index.html' from 'dist' for unknown routes
 app.get('*', (req, res) => {
     res.sendFile(path.join(frontendPath, 'index.html'));
 });
@@ -49,5 +49,5 @@ cloudinary.config({
 });
 
 app.listen(port, () => {
-    console.log('Server is running on port', port);
+    console.log(`Server is running on port ${port}`);
 });
