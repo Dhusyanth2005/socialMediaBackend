@@ -5,7 +5,7 @@ import cookieParser from 'cookie-parser';
 import userRoutes from './routes/userRoutes.js';
 import postRoutes from './routes/postRoutes.js';
 import { v2 as cloudinary } from "cloudinary";
-import cors from 'cors';
+// import cors from 'cors';
 
 
 dotenv.config();
@@ -14,12 +14,12 @@ connectDB();
 const app = express();
 
 const port = process.env.PORT || 5000;
-app.use(cors({
-    origin: 'https://threads-frontend-iota.vercel.app',
-    credentials: true, // Allow cookies (JWT Auth)
-    methods: 'GET,POST,PUT,DELETE',
-    allowedHeaders: 'Content-Type,Authorization',
-}));
+// app.use(cors({
+//     origin: 'https://threads-frontend-iota.vercel.app',
+//     credentials: true, // Allow cookies (JWT Auth)
+//     methods: 'GET,POST,PUT,DELETE',
+//     allowedHeaders: 'Content-Type,Authorization',
+// }));
 
 
 cloudinary.config({
