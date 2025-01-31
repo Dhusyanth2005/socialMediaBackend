@@ -21,6 +21,13 @@ app.use(cors({
     allowedHeaders: 'Content-Type,Authorization',
 }));
 
+app.use(express.static(path.join(__dirname, 'frontend/build')));
+
+// Catch-all handler for all routes, sending the React app's index.html
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend/build', 'index.html'));
+});
+
 
 cloudinary.config({
 	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
