@@ -15,10 +15,12 @@ const app = express();
 
 const port = process.env.PORT || 5000;
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: 'https://threads-frontend-iota.vercel.app',
+    credentials: true, // Allow cookies (JWT Auth)
     methods: 'GET,POST,PUT,DELETE',
     allowedHeaders: 'Content-Type,Authorization',
 }));
+
 
 cloudinary.config({
 	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
