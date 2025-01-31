@@ -14,12 +14,12 @@ connectDB();
 const app = express();
 
 const port = process.env.PORT || 5000;
-// app.use(cors({
-//     origin: 'https://threads-frontend-iota.vercel.app',
-//     credentials: true, // Allow cookies (JWT Auth)
-//     methods: 'GET,POST,PUT,DELETE',
-//     allowedHeaders: 'Content-Type,Authorization',
-// }));
+app.use(cors({
+    origin: 'https://threads-frontend-iota.vercel.app',
+    credentials: true, // Allow cookies (JWT Auth)
+    methods: 'GET,POST,PUT,DELETE',
+    allowedHeaders: 'Content-Type,Authorization',
+}));
 
 
 cloudinary.config({
