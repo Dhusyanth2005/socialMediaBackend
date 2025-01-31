@@ -14,13 +14,20 @@ connectDB();
 const app = express();
 
 const port = process.env.PORT || 5000;
-// app.use(cors({
-//     origin: 'https://threads-frontend-iota.vercel.app',
-//     credentials: true, // Allow cookies (JWT Auth)
-//     methods: 'GET,POST,PUT,DELETE',
-//     allowedHeaders: 'Content-Type,Authorization',
-// }));
 
+app.use(cors({
+    origin: 'https://threads-frontend-iota.vercel.app',
+    credentials: true, // Allow cookies (JWT Auth)
+    methods: 'GET,POST,PUT,DELETE',
+    allowedHeaders: 'Content-Type,Authorization',
+}));
+
+app.use(express.static(path.join(__dirname, 'frontend/build')));
+
+// Catch-all handler for all routes, sending the React app's index.html
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend/build', 'index.html'));
+});
 
 cloudinary.config({
 	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
