@@ -20,7 +20,10 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 app.use(cors({
-    origin: 'https://threads-frontend-iota.vercel.app',
+    origin: ['threads-frontend-c23ochsc9-dhusyanths-projects.vercel.app',
+        'threads-frontend-five.vercel.app',
+        'threads-frontend-c23ochsc9-dhusyanths-projects.vercel.app'
+    ],
     credentials: true,
     methods: 'GET,POST,PUT,DELETE',
     allowedHeaders: 'Content-Type,Authorization',
